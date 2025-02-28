@@ -3,6 +3,8 @@ import dotenv from "dotenv";
 import mongoose from "mongoose";
 import cookieParser from "cookie-parser";
 import {authRouter} from "./routes/auth_routes";
+import cors from "cors";
+
 dotenv.config();
 const app = express();
 app.use(cookieParser());
@@ -10,6 +12,10 @@ app.use(cookieParser());
 const PORT: number = Number(process.env.PORT) || 3000;
 const MONGO_URI: string = String(process.env.MONGO_URI);
 
+app.use(cors({
+  origin:"http://localhost:5173",
+  credentials: true,
+}));
 app.use(express.json());
 console.log(`Loaded PORT: ${process.env.PORT}`);
 console.log(MONGO_URI);
